@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.imgPicture = new System.Windows.Forms.PictureBox();
             this.btnColor = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
             this.IdColor = new System.Windows.Forms.Label();
             this.groupBoxShape = new System.Windows.Forms.GroupBox();
-            this.btnCircle = new System.Windows.Forms.Button();
             this.btnEllips = new System.Windows.Forms.Button();
             this.btnSquere = new System.Windows.Forms.Button();
             this.btnLine = new System.Windows.Forms.Button();
@@ -52,6 +52,7 @@
             this.polishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxSize = new System.Windows.Forms.GroupBox();
             this.sizeBar = new System.Windows.Forms.TrackBar();
+            this.btn_curve = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPicture)).BeginInit();
             this.groupBoxShape.SuspendLayout();
@@ -113,59 +114,55 @@
             // 
             // groupBoxShape
             // 
-            this.groupBoxShape.Controls.Add(this.btnCircle);
+            this.groupBoxShape.Controls.Add(this.btn_curve);
             this.groupBoxShape.Controls.Add(this.btnEllips);
             this.groupBoxShape.Controls.Add(this.btnSquere);
             this.groupBoxShape.Controls.Add(this.btnLine);
             this.groupBoxShape.Location = new System.Drawing.Point(619, 39);
             this.groupBoxShape.Name = "groupBoxShape";
-            this.groupBoxShape.Size = new System.Drawing.Size(145, 183);
+            this.groupBoxShape.Size = new System.Drawing.Size(145, 134);
             this.groupBoxShape.TabIndex = 5;
             this.groupBoxShape.TabStop = false;
             this.groupBoxShape.Text = "Shapes";
             // 
-            // btnCircle
-            // 
-            this.btnCircle.Location = new System.Drawing.Point(32, 138);
-            this.btnCircle.Name = "btnCircle";
-            this.btnCircle.Size = new System.Drawing.Size(80, 30);
-            this.btnCircle.TabIndex = 5;
-            this.btnCircle.Text = "Circle";
-            this.btnCircle.UseVisualStyleBackColor = true;
-            // 
             // btnEllips
             // 
-            this.btnEllips.Location = new System.Drawing.Point(32, 102);
+            this.btnEllips.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEllips.BackgroundImage")));
+            this.btnEllips.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEllips.Location = new System.Drawing.Point(74, 74);
             this.btnEllips.Name = "btnEllips";
-            this.btnEllips.Size = new System.Drawing.Size(80, 30);
+            this.btnEllips.Size = new System.Drawing.Size(38, 38);
             this.btnEllips.TabIndex = 4;
-            this.btnEllips.Text = "Ellipse";
             this.btnEllips.UseVisualStyleBackColor = true;
+            this.btnEllips.Click += new System.EventHandler(this.btnEllips_Click);
             // 
             // btnSquere
             // 
-            this.btnSquere.Location = new System.Drawing.Point(32, 66);
+            this.btnSquere.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSquere.BackgroundImage")));
+            this.btnSquere.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSquere.Location = new System.Drawing.Point(32, 74);
             this.btnSquere.Name = "btnSquere";
-            this.btnSquere.Size = new System.Drawing.Size(80, 30);
+            this.btnSquere.Size = new System.Drawing.Size(38, 38);
             this.btnSquere.TabIndex = 3;
-            this.btnSquere.Text = "Square";
             this.btnSquere.UseVisualStyleBackColor = true;
             this.btnSquere.Click += new System.EventHandler(this.btnSquere_Click);
             // 
             // btnLine
             // 
-            this.btnLine.Location = new System.Drawing.Point(32, 30);
+            this.btnLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLine.BackgroundImage")));
+            this.btnLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLine.Location = new System.Drawing.Point(74, 30);
             this.btnLine.Name = "btnLine";
-            this.btnLine.Size = new System.Drawing.Size(80, 30);
+            this.btnLine.Size = new System.Drawing.Size(38, 38);
             this.btnLine.TabIndex = 2;
-            this.btnLine.Text = "Line";
             this.btnLine.UseVisualStyleBackColor = true;
+            this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
             // 
             // groupBoxColor
             // 
             this.groupBoxColor.Controls.Add(this.IdColor);
             this.groupBoxColor.Controls.Add(this.btnColor);
-            this.groupBoxColor.Location = new System.Drawing.Point(619, 228);
+            this.groupBoxColor.Location = new System.Drawing.Point(619, 179);
             this.groupBoxColor.Name = "groupBoxColor";
             this.groupBoxColor.Size = new System.Drawing.Size(145, 129);
             this.groupBoxColor.TabIndex = 6;
@@ -177,7 +174,7 @@
             this.groupBoxAction.Controls.Add(this.btnRedo);
             this.groupBoxAction.Controls.Add(this.btnUndo);
             this.groupBoxAction.Controls.Add(this.btnClean);
-            this.groupBoxAction.Location = new System.Drawing.Point(619, 458);
+            this.groupBoxAction.Location = new System.Drawing.Point(619, 409);
             this.groupBoxAction.Name = "groupBoxAction";
             this.groupBoxAction.Size = new System.Drawing.Size(145, 152);
             this.groupBoxAction.TabIndex = 7;
@@ -262,21 +259,21 @@
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // polishToolStripMenuItem
             // 
             this.polishToolStripMenuItem.Name = "polishToolStripMenuItem";
-            this.polishToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.polishToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.polishToolStripMenuItem.Text = "Polish";
             this.polishToolStripMenuItem.Click += new System.EventHandler(this.polishToolStripMenuItem_Click);
             // 
             // groupBoxSize
             // 
             this.groupBoxSize.Controls.Add(this.sizeBar);
-            this.groupBoxSize.Location = new System.Drawing.Point(619, 363);
+            this.groupBoxSize.Location = new System.Drawing.Point(619, 314);
             this.groupBoxSize.Name = "groupBoxSize";
             this.groupBoxSize.Size = new System.Drawing.Size(145, 89);
             this.groupBoxSize.TabIndex = 9;
@@ -291,6 +288,17 @@
             this.sizeBar.Size = new System.Drawing.Size(133, 56);
             this.sizeBar.TabIndex = 0;
             this.sizeBar.Value = 4;
+            // 
+            // btn_curve
+            // 
+            this.btn_curve.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_curve.BackgroundImage")));
+            this.btn_curve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_curve.Location = new System.Drawing.Point(32, 30);
+            this.btn_curve.Name = "btn_curve";
+            this.btn_curve.Size = new System.Drawing.Size(38, 38);
+            this.btn_curve.TabIndex = 5;
+            this.btn_curve.UseVisualStyleBackColor = true;
+            this.btn_curve.Click += new System.EventHandler(this.btn_curve_Click);
             // 
             // Form1
             // 
@@ -343,12 +351,12 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Button btnCircle;
         private System.Windows.Forms.GroupBox groupBoxSize;
         private System.Windows.Forms.TrackBar sizeBar;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polishToolStripMenuItem;
+        private System.Windows.Forms.Button btn_curve;
     }
 }
 

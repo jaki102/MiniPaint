@@ -17,8 +17,10 @@ namespace MiniPaint
         private Graphics g;
         private Point p = Point.Empty;
         private Pen pen;
-        Stack<Bitmap> undoStack = new Stack<Bitmap>();
-        Stack<Bitmap> redoStack = new Stack<Bitmap>();
+        private int cX, cY;
+        private int figure = 0;
+        List<Bitmap> undoList = new List<Bitmap>();
+        List<Bitmap> redoList = new List<Bitmap>();
 
         public Form1()
         {
@@ -31,18 +33,27 @@ namespace MiniPaint
         private void imgPicture_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
+            {
                 p = e.Location;
+            }
+            Bitmap image = new Bitmap(imgPicture.Image);
+            undoList.Add(image);
+            redoList.Clear();
+            btnUndo.Enabled = true;
+            cX = e.X;
+            cY = e.Y;
         }
 
         private void imgPicture_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
+                if (figure == 0) { 
                 pen = new Pen(pen.Color, sizeBar.Value);
                 g.DrawLine(pen, p, e.Location);
                 p = e.Location;
-
                 imgPicture.Refresh();
+                }
             }
         }
 
@@ -64,41 +75,53 @@ namespace MiniPaint
         }
 
         private void imgPicture_MouseUp(object sender, MouseEventArgs e)
-        {
-            Bitmap image = new Bitmap(imgPicture.Image);
-            undoStack.Push(image);
-            btnUndo.Enabled = true;
-        }
-
-        private void btnSquere_Click(object sender, EventArgs e)
-        {
-
+        {   if(figure == 1)
+            {
+                pen = new Pen(pen.Color, sizeBar.Value);
+                g.DrawLine(pen, cX, cY, e.X, e.Y);
+                imgPicture.Refresh();
+            } else if (figure == 2){
+                pen = new Pen(pen.Color, sizeBar.Value);
+                g.DrawRectangle(pen, cX, cY, Math.Abs(cX - e.X), Math.Abs(cY - e.Y));
+                imgPicture.Refresh();
+            } else if (figure == 3)
+            {
+                pen = new Pen(pen.Color, sizeBar.Value);
+                g.DrawEllipse(pen, cX, cY, Math.Abs(cX - e.X), Math.Abs(cY - e.Y));
+                imgPicture.Refresh();
+            }
         }
 
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            if(undoStack.Count != 0) { 
-                Bitmap undoImage = undoStack.Pop();
-                imgPicture.Image = undoImage;
-                redoStack.Push(undoImage);
-                btnRedo.Enabled = true;
-                g = Graphics.FromImage(imgPicture.Image);
-                imgPicture.Refresh();
+            if (undoList.Count >= 1) { 
+            Bitmap currentImage = new Bitmap(imgPicture.Image);
+            redoList.Add(currentImage);
+            Bitmap undoImage = undoList[undoList.Count - 1];
+            imgPicture.Image = undoImage;
+            redoList.Add(undoImage);
+            undoList.Remove(undoList[undoList.Count - 1]);
+            btnRedo.Enabled = true;
+            g = Graphics.FromImage(imgPicture.Image);
+            imgPicture.Refresh();
             }
             else
             {
                 btnUndo.Enabled = false;
             }
-
         }
 
         private void btnRedo_Click(object sender, EventArgs e)
         {
-            if (redoStack.Count != 0)
+            if (redoList.Count >= 1)
             {
-                Bitmap redoImage = redoStack.Pop();
+                redoList.Remove(redoList[redoList.Count - 1]);
+                Bitmap redoImage = redoList[redoList.Count - 1];
                 imgPicture.Image = redoImage;
-                undoStack.Push(redoImage);
+                undoList.Add(redoImage);
+                redoList.Remove(redoList[redoList.Count - 1]);
+                g = Graphics.FromImage(imgPicture.Image);
+                imgPicture.Refresh();
             }
             else
             {
@@ -110,7 +133,6 @@ namespace MiniPaint
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Bitmaps|*.bmp|jpeps|*.jpg";
-
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 imgPicture.Image = Bitmap.FromFile(openFileDialog.FileName);
@@ -175,6 +197,25 @@ namespace MiniPaint
             btnUndo.Text = rm.GetString("undo");
             btnRedo.Text = rm.GetString("redo");
             btnClean.Text = rm.GetString("clean");
+        }
+
+        private void btnLine_Click(object sender, EventArgs e)
+        {
+            figure = 1;
+        }
+        private void btnSquere_Click(object sender, EventArgs e)
+        {
+            figure = 2;
+        }
+
+        private void btn_curve_Click(object sender, EventArgs e)
+        {
+            figure = 0;
+        }
+
+        private void btnEllips_Click(object sender, EventArgs e)
+        {
+            figure = 3;
         }
     }
 }
