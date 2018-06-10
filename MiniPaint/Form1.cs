@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
+using System.IO;
+
 
 namespace MiniPaint
 {
@@ -21,6 +23,8 @@ namespace MiniPaint
         private int figure = 0;
         List<Bitmap> undoList = new List<Bitmap>();
         List<Bitmap> redoList = new List<Bitmap>();
+        ToolStripMenuItem pluginsMenu;
+        ToolStripMenuItem emptyMenu;
 
         public Form1()
         {
@@ -28,6 +32,7 @@ namespace MiniPaint
             imgPicture.Image = new Bitmap(570, 580);
             g = Graphics.FromImage(imgPicture.Image);
             pen = new Pen(Color.Black);
+            LoadPlugins();
         }
 
         private void imgPicture_MouseDown(object sender, MouseEventArgs e)
@@ -176,6 +181,8 @@ namespace MiniPaint
             btnUndo.Text = rm.GetString("undo");
             btnRedo.Text = rm.GetString("redo");
             btnClean.Text = rm.GetString("clean");
+            pluginsMenu.Text = "Wtyczki";
+            emptyMenu.Text = "Pusto";
         }
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
@@ -197,6 +204,9 @@ namespace MiniPaint
             btnUndo.Text = rm.GetString("undo");
             btnRedo.Text = rm.GetString("redo");
             btnClean.Text = rm.GetString("clean");
+            pluginsMenu.Text = "Plugins";
+            emptyMenu.Text = "Empty";
+
         }
 
         private void btnLine_Click(object sender, EventArgs e)
@@ -216,6 +226,44 @@ namespace MiniPaint
         private void btnEllips_Click(object sender, EventArgs e)
         {
             figure = 3;
+        }
+
+        private void LoadPlugins()
+        {
+            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\plugins\");
+            FileInfo[] plugins = di.GetFiles("*.dll");
+            pluginsMenu = new ToolStripMenuItem("Plugins");
+            if (plugins.Length == 0)
+            {
+                pluginsMenu.DropDownItems.Add(emptyMenu = new ToolStripMenuItem("Empty"));
+            }
+            foreach (FileInfo plugin in plugins)
+            {
+                string pluginPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\plugins\" + plugin.Name;
+                var assembly = Assembly.LoadFrom(pluginPath);
+                foreach (Type type in assembly.GetTypes())
+                {
+                    if (type.IsClass)
+                    {
+                        if (type.IsPublic)
+                        {
+                            if (typeof(IPlugin.IPlugin).IsAssignableFrom(type))
+                            {
+                                var o = Activator.CreateInstance(type);
+                                var p = (IPlugin.IPlugin)o;
+                                ToolStripMenuItem plug = new ToolStripMenuItem(p.getName());
+                                plug.Click += (s, e) => {
+                                    undoList.Add((Bitmap)imgPicture.Image);
+                                    p.run((Bitmap)imgPicture.Image);
+                                    imgPicture.Refresh();
+                                };
+                                pluginsMenu.DropDownItems.Add(plug);
+                            }
+                        }
+                    }
+                }
+            }
+            menu.Items.Add(pluginsMenu);
         }
     }
 }

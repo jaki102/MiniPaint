@@ -35,6 +35,7 @@
             this.btnClean = new System.Windows.Forms.Button();
             this.IdColor = new System.Windows.Forms.Label();
             this.groupBoxShape = new System.Windows.Forms.GroupBox();
+            this.btn_curve = new System.Windows.Forms.Button();
             this.btnEllips = new System.Windows.Forms.Button();
             this.btnSquere = new System.Windows.Forms.Button();
             this.btnLine = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.polishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxSize = new System.Windows.Forms.GroupBox();
             this.sizeBar = new System.Windows.Forms.TrackBar();
-            this.btn_curve = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPicture)).BeginInit();
             this.groupBoxShape.SuspendLayout();
@@ -125,6 +125,17 @@
             this.groupBoxShape.TabStop = false;
             this.groupBoxShape.Text = "Shapes";
             // 
+            // btn_curve
+            // 
+            this.btn_curve.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_curve.BackgroundImage")));
+            this.btn_curve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_curve.Location = new System.Drawing.Point(32, 30);
+            this.btn_curve.Name = "btn_curve";
+            this.btn_curve.Size = new System.Drawing.Size(38, 38);
+            this.btn_curve.TabIndex = 5;
+            this.btn_curve.UseVisualStyleBackColor = true;
+            this.btn_curve.Click += new System.EventHandler(this.btn_curve_Click);
+            // 
             // btnEllips
             // 
             this.btnEllips.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEllips.BackgroundImage")));
@@ -176,7 +187,7 @@
             this.groupBoxAction.Controls.Add(this.btnClean);
             this.groupBoxAction.Location = new System.Drawing.Point(619, 409);
             this.groupBoxAction.Name = "groupBoxAction";
-            this.groupBoxAction.Size = new System.Drawing.Size(145, 152);
+            this.groupBoxAction.Size = new System.Drawing.Size(145, 159);
             this.groupBoxAction.TabIndex = 7;
             this.groupBoxAction.TabStop = false;
             this.groupBoxAction.Text = "Actions";
@@ -288,17 +299,6 @@
             this.sizeBar.Size = new System.Drawing.Size(133, 56);
             this.sizeBar.TabIndex = 0;
             this.sizeBar.Value = 4;
-            // 
-            // btn_curve
-            // 
-            this.btn_curve.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_curve.BackgroundImage")));
-            this.btn_curve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_curve.Location = new System.Drawing.Point(32, 30);
-            this.btn_curve.Name = "btn_curve";
-            this.btn_curve.Size = new System.Drawing.Size(38, 38);
-            this.btn_curve.TabIndex = 5;
-            this.btn_curve.UseVisualStyleBackColor = true;
-            this.btn_curve.Click += new System.EventHandler(this.btn_curve_Click);
             // 
             // Form1
             // 
