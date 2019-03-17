@@ -10,6 +10,7 @@
 This project is similar to famous Paint application. User can draw line, figure, open image, change language and more. The main goal of the application was to support external plugins.
 ## Screenshots
 ![alt text](https://github.com/jaki102/MiniPaint/blob/master/asset/app.png "Application view")
+
 ##Features
 * Draw line, figure
 * Change size and color line
